@@ -1,0 +1,34 @@
+#grid {
+    width: 1000px;
+    height: 1000px;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    /* grid-template-rows: repeat(10, 40px); */
+    grid-template-rows: repeat(var(--cols), 1fr);
+    gap: 0px;
+    margin: 20px;
+    background-image: url("img/map2.PNG");
+    background-size: cover;
+}
+
+.cell {
+    width: 1fr;
+    height: 1fr;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cell:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+#mapContainer {
+    display: flex;
+    justify-content: center;
+    /* vízszintesen közép */
+}
+
+main {
+    display: flex;
+    flex-direction: column; /* egymás alá helyezi az elemeket */
+    align-items: center; /* középre igazít mindent vízszintesen */
+}
