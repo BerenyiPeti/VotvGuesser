@@ -2,7 +2,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("img/background.png");
+    background-image: url("./img/background.png");
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0px;
@@ -18,7 +18,7 @@ body {
     grid-template-rows: repeat(var(--cols), 1fr);
     gap: 0px;
     margin: 20px;
-    background-image: url("img/map2.PNG");
+    background-image: url("./img/map2.PNG");
     background-size: cover;
 }
 
