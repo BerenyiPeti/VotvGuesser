@@ -3,18 +3,22 @@ var solutionY = 0
 var difX = 0
 var difY = 0
 var difficulty = "easy"
+var canSelect = false
 
 window.onload = function () {
-    init(10)
+    init()
 
 };
 
-function init(cols) {
-    buildMap(cols)
-
+function init() {
+    buildMap()
+    document.getElementById("difficulty").addEventListener("change", function () {
+        buildMap()
+    })
 }
 
-function buildMap(cols) {
+function buildMap() {
+    let cols = setDifficulity()
     let grid = document.getElementById("grid")
     grid.innerHTML = ''
     grid.style.setProperty('--cols', cols)
@@ -28,20 +32,19 @@ function buildMap(cols) {
         cell.id = `c${index}`
         cell.dataset.x = x
         cell.dataset.y = y
-        
+
         cell.addEventListener("click", function () {
-            let x = this.dataset.x;
-            let y = this.dataset.y;
-            onCellSelected(x, y)
+            if (canSelect) {
+                let x = this.dataset.x;
+                let y = this.dataset.y;
+                onCellSelected(x, y)
+            }
         });
         grid.appendChild(cell)
     }
 }
 
-function cellClick(cell) {
-    console.log(cell.id)
-}
-
+//returns cols
 function setDifficulity() {
     let dropdown = document.getElementById("difficulty")
     difficulty = dropdown.value
@@ -67,7 +70,8 @@ function setDifficulity() {
             break;
     }
 
-    buildMap(cols)
+    return cols
+
     /* dropdown.addEventListener("change", function() {
         console.log(this.value);
         
@@ -75,7 +79,8 @@ function setDifficulity() {
 }
 
 function startGame() {
-    setDifficulity()
+    canSelect = true
+    buildMap()
     rollPicture()
 }
 
@@ -91,11 +96,16 @@ function onCellSelected(x, y) {
         guess.style.backgroundColor = "rgba(255, 0, 0, 0.5)"
         solution.style.backgroundColor = "rgba(0, 0, 255, 0.5)"
     }
+
+    canSelect = false
+
 }
 
 function showResult() {
 
 }
+
+
 
 function rollPicture() {
     let x = Math.floor(Math.random() * 10)
@@ -134,7 +144,7 @@ function calcScore(x, y) {
         default:
             break;
     }
-    let score = Math.max(0, 100 - distance * mult) 
+    let score = Math.max(0, 100 - distance * mult)
 
 
     document.getElementById("score").innerHTML = `Score: ${score}`
