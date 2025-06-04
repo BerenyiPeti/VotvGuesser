@@ -7,7 +7,7 @@ var canSelect = false
 var totalScore = 0
 var round = 0
 const images = [{
-    "image": "../img/loc0.png",
+    "image": "img/loc0.png",
     "solutions": {
       "noob": { "x": 1, "y": 0 },
       "easy": { "x": 5, "y": 4 },
@@ -17,7 +17,7 @@ const images = [{
     }
   },
   {
-    "image": "../img/loc1.png",
+    "image": "img/loc1.png",
     "solutions": {
       "noob": { "x": 1, "y": 0 },
       "easy": { "x": 6, "y": 4 },
@@ -27,7 +27,7 @@ const images = [{
     }
   },
   {
-    "image": "../img/loc2.png",
+    "image": "img/loc2.png",
     "solutions": {
       "noob": { "x": 0, "y": 1 },
       "easy": { "x": 3, "y": 6 },
@@ -37,7 +37,7 @@ const images = [{
     }
   },
   {
-    "image": "../img/loc3.png",
+    "image": "img/loc3.png",
     "solutions": {
       "noob": { "x": 0, "y": 1 },
       "easy": { "x": 4, "y": 8 },
@@ -47,7 +47,7 @@ const images = [{
     }
   },
   {
-    "image": "../img/loc4.png",
+    "image": "img/loc4.png",
     "solutions": {
       "noob": { "x": 1, "y": 1 },
       "easy": { "x": 8, "y": 8 },
@@ -57,7 +57,7 @@ const images = [{
     }
   },
   {
-    "image": "../img/loc5.png",
+    "image": "img/loc5.png",
     "solutions": {
       "noob": { "x": 1, "y": 1 },
       "easy": { "x": 9, "y": 9 },
@@ -67,7 +67,7 @@ const images = [{
     }
   },
   {
-    "image": "../img/loc6.png",
+    "image": "img/loc6.png",
     "solutions": {
       "noob": { "x": 0, "y": 0 },
       "easy": { "x": 2, "y": 2 },
