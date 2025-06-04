@@ -4,6 +4,10 @@ var difX = 0
 var difY = 0
 var difficulty = "easy"
 var canSelect = false
+var totalScore = 0
+var round = 0
+const images = []
+var locations = []
 
 window.onload = function () {
     init()
@@ -15,6 +19,7 @@ function init() {
     document.getElementById("difficulty").addEventListener("change", function () {
         buildMap()
     })
+    fetchPictures()
 }
 
 function buildMap() {
@@ -79,9 +84,24 @@ function setDifficulity() {
 }
 
 function startGame() {
+    locations = [...images]
+    console.log(locations);
+    
+    round = 0
+    totalScore = 0
+    showResult()
+    nextRound()
+    document.getElementById("nextBtn").disabled = true
+}
+
+function nextRound() {
     canSelect = true
     buildMap()
     rollPicture()
+    round++
+    document.getElementById("round").innerHTML = `Round: ${round}/5`
+    document.getElementById("difficulty").disabled = true
+    document.getElementById("nextBtn").disabled = true
 }
 
 function onCellSelected(x, y) {
@@ -89,6 +109,10 @@ function onCellSelected(x, y) {
     let guess = document.querySelector(`.cell[data-x='${x}'][data-y='${y}']`)
 
     let solution = document.querySelector(`.cell[data-x='${solutionX}'][data-y='${solutionY}']`)
+
+    guess.classList.add("highlighted")
+    solution.classList.add("highlighted")
+
 
     if (x == solutionX && y == solutionY) {
         guess.style.backgroundColor = "rgba(0, 255, 0, 0.5)"
@@ -98,21 +122,82 @@ function onCellSelected(x, y) {
     }
 
     canSelect = false
+    if (round < 5) {
+        document.getElementById("nextBtn").disabled = false
+
+    } else {
+        document.getElementById("difficulty").disabled = false
+    }
+
+    console.log("x:", x, "y:", y);
+
 
 }
 
 function showResult() {
+    document.getElementById("score").innerHTML = `Score: ${totalScore}`
+}
+
+function fetchPictures() {
+    fetch("images.json")
+        .then(res => res.json())
+        .then(json => {
+            json.forEach(entry => {
+                images.push(entry); // vagy ha csak pl. a medium koordináták kellenek:
+                // allData.push(entry.solutions.medium);
+            });
+
+            console.log(locations);
+        });
 
 }
 
-
-
 function rollPicture() {
-    let x = Math.floor(Math.random() * 10)
-    let y = Math.floor(Math.random() * 10)
-    document.getElementById("find").innerHTML = `Find: X:${x} Y:${y}`
-    solutionX = x
-    solutionY = y
+    let index = Math.floor(Math.random() * locations.length);
+    let solution = locations[index].solutions
+    console.log("length:");
+    console.log(locations.length);
+    console.log("index:");
+    console.log(index);
+    
+    
+        
+    solutionX = 0
+    solutionY = 0
+    switch (difficulty) {
+        case "noob":
+            solutionX = solution["noob"].x
+            solutionY = solution["noob"].y
+            break;
+        case "easy":
+            solutionX = solution["easy"].x
+            solutionY = solution["easy"].y
+            break;
+        case "medium":
+            solutionX = solution["medium"].x
+            solutionY = solution["medium"].y
+            break;
+        case "hard":
+            solutionX = solution["hard"].x
+            solutionY = solution["hard"].y
+            break;
+        case "omega":
+            solutionX = solution["omega"].x
+            solutionY = solution["omega"].y
+            break;
+        default:
+            solutionX = solution["easy"].x
+            solutionY = solution["easy"].y
+            break;
+    }
+    
+    let route = locations[index].image
+    console.log(route);
+    
+    document.getElementById("image").src = route
+    locations.splice(index, 1)
+    console.log("solx:",solutionX,"soly:",solutionY);
+    
 }
 
 function calcScore(x, y) {
@@ -146,8 +231,6 @@ function calcScore(x, y) {
     }
     let score = Math.max(0, 100 - distance * mult)
 
-
-    document.getElementById("score").innerHTML = `Score: ${score}`
-
-
+    totalScore += score
+    showResult()
 }

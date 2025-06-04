@@ -25,10 +25,13 @@
                 <option value="hard">Hard</option>
                 <option value="omega">Omega Hard</option>
             </select>
-            <button onclick="startGame()">Start</button>
+            <button onclick="startGame()" id="startBtn">Start</button>
+            <button onclick="nextRound()" id="nextBtn" disabled>Next Round</button>
         </div>
         <h1 id="score">Score: 0</h1>
-        <h1 id="find">Find: X: Y:</h1>
+        <h1 id="round">Round: 0/5</h1>
+        <h1 id="find">Find:</h1>
+        <img src="img/blank.PNG" id="image" alt="loc">
     </main>
 </body>
 
