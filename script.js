@@ -85,7 +85,6 @@ function setDifficulity() {
 
 function startGame() {
     locations = [...images]
-    console.log(locations);
     
     round = 0
     totalScore = 0
@@ -129,7 +128,6 @@ function onCellSelected(x, y) {
         document.getElementById("difficulty").disabled = false
     }
 
-    console.log("x:", x, "y:", y);
 
 
 }
@@ -147,7 +145,7 @@ function fetchPictures() {
                 // allData.push(entry.solutions.medium);
             });
 
-            console.log(locations);
+            
         });
 
 }
@@ -155,10 +153,6 @@ function fetchPictures() {
 function rollPicture() {
     let index = Math.floor(Math.random() * locations.length);
     let solution = locations[index].solutions
-    console.log("length:");
-    console.log(locations.length);
-    console.log("index:");
-    console.log(index);
     
     
         
@@ -192,11 +186,9 @@ function rollPicture() {
     }
     
     let route = locations[index].image
-    console.log(route);
     
     document.getElementById("image").src = route
     locations.splice(index, 1)
-    console.log("solx:",solutionX,"soly:",solutionY);
     
 }
 
