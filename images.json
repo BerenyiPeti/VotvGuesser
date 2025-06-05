@@ -68,5 +68,135 @@
       "hard": { "x": 9, "y": 10 },
       "omega": { "x": 19, "y": 20 }
     }
-  }
+  },
+{
+    "image": "img/loc7.png",
+    "solutions": {
+    "noob": { "x": 1, "y": 1 },
+            "easy": { "x": 9, "y": 5 },
+            "medium": { "x": 18, "y": 10 },
+            "hard": { "x": 37, "y": 21 },
+            "omega": { "x": 74, "y": 42 }
+            }
+},
+{
+    "image": "img/loc8.png",
+    "solutions": {
+    "noob": { "x": 1, "y": 0 },
+            "easy": { "x": 5, "y": 3 },
+            "medium": { "x": 10, "y": 7 },
+            "hard": { "x": 20, "y": 15 },
+            "omega": { "x": 41, "y": 31 }
+            }
+},
+{
+    "image": "img/loc9.png",
+    "solutions": {
+    "noob": { "x": 0, "y": 0 },
+            "easy": { "x": 0, "y": 0 },
+            "medium": { "x": 1, "y": 1 },
+            "hard": { "x": 3, "y": 3 },
+            "omega": { "x": 6, "y": 7 }
+            }
+},
+{
+    "image": "img/loc10.png",
+    "solutions": {
+    "noob": { "x": 0, "y": 1 },
+            "easy": { "x": 2, "y": 8 },
+            "medium": { "x": 4, "y": 16 },
+            "hard": { "x": 8, "y": 32 },
+            "omega": { "x": 16, "y": 64 }
+            }
+},
+{
+    "image": "img/loc11.png",
+    "solutions": {
+    "noob": { "x": 0, "y": 0 },
+            "easy": { "x": 0, "y": 4 },
+            "medium": { "x": 1, "y": 9 },
+            "hard": { "x": 3, "y": 19 },
+            "omega": { "x": 6, "y": 38 }
+            }
+},
+{
+    "image": "img/loc12.png",
+    "solutions": {
+    "noob": { "x": 0, "y": 0 },
+            "easy": { "x": 4, "y": 2 },
+            "medium": { "x": 9, "y": 5 },
+            "hard": { "x": 18, "y": 11 },
+            "omega": { "x": 36, "y": 23 }
+            }
+},
+{
+    "image": "img/loc13.png",
+    "solutions": {
+    "noob": { "x": 1, "y": 1 },
+            "easy": { "x": 5, "y": 9 },
+            "medium": { "x": 10, "y": 18 },
+            "hard": { "x": 21, "y": 36 },
+            "omega": { "x": 43, "y": 73 }
+            }
+},
+{
+    "image": "img/loc14.png",
+    "solutions": {
+    "noob": { "x": 1, "y": 1 },
+            "easy": { "x": 5, "y": 5 },
+            "medium": { "x": 10, "y": 11 },
+            "hard": { "x": 20, "y": 23 },
+            "omega": { "x": 41, "y": 47 }
+            }
+},
+{
+    "image": "img/loc15.png",
+    "solutions": {
+    "noob": { "x": 1, "y": 1 },
+            "easy": { "x": 5, "y": 7 },
+            "medium": { "x": 11, "y": 15 },
+            "hard": { "x": 23, "y": 31 },
+            "omega": { "x": 46, "y": 63 }
+            }
+},
+{
+    "image": "img/loc16.png",
+    "solutions": {
+    "noob": { "x": 1, "y": 1 },
+            "easy": { "x": 8, "y": 6 },
+            "medium": { "x": 17, "y": 13 },
+            "hard": { "x": 35, "y": 27 },
+            "omega": { "x": 70, "y": 54 }
+            }
+},
+{
+    "image": "img/loc17.png",
+    "solutions": {
+    "noob": { "x": 1, "y": 1 },
+            "easy": { "x": 7, "y": 6 },
+            "medium": { "x": 15, "y": 12 },
+            "hard": { "x": 30, "y": 25 },
+            "omega": { "x": 61, "y": 50 }
+            }
+},
+{
+    "image": "img/loc18.png",
+    "solutions": {
+    "noob": { "x": 0, "y": 0 },
+            "easy": { "x": 1, "y": 4 },
+            "medium": { "x": 2, "y": 9 },
+            "hard": { "x": 4, "y": 18 },
+            "omega": { "x": 9, "y": 37 }
+            }
+},
+{
+    "image": "img/loc19.png",
+    "solutions": {
+    "noob": { "x": 0, "y": 1 },
+            "easy": { "x": 1, "y": 6 },
+            "medium": { "x": 2, "y": 13 },
+            "hard": { "x": 5, "y": 26 },
+            "omega": { "x": 11, "y": 52 }
+            }
+}
 ]

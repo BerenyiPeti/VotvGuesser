@@ -27,7 +27,7 @@ body.menu-up {
     /* grid-template-rows: repeat(10, 40px); */
     grid-template-rows: repeat(var(--cols), 1fr);
     gap: 0px;
-    background-image: url("./img/map2.png");
+    background-image: url("./img/map.png");
     background-size: cover;
 }
 
@@ -84,6 +84,8 @@ body.menu-up {
 }
 
 #results {
+    top: 0;
+    left: 0;
     display: none;
     justify-content: center;
     align-items: center;
@@ -123,4 +125,15 @@ body.menu-up {
 button:disabled {
     pointer-events: auto !important;
     cursor: not-allowed !important;
+}
+
+#closeEndscreen {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    cursor: pointer;
+    color: #444;
 }
