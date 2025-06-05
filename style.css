@@ -18,7 +18,7 @@ body {
     grid-template-rows: repeat(var(--cols), 1fr);
     gap: 0px;
     margin: 20px;
-    background-image: url("./img/map2.PNG");
+    background-image: url("./img/map.PNG");
     background-size: cover;
 }
 

@@ -6,76 +6,7 @@ var difficulty = "easy"
 var canSelect = false
 var totalScore = 0
 var round = 0
-const images = [{
-    "image": "img/loc0.png",
-    "solutions": {
-      "noob": { "x": 1, "y": 0 },
-      "easy": { "x": 5, "y": 4 },
-      "medium": { "x": 10, "y": 9 },
-      "hard": { "x": 20, "y": 19 },
-      "omega": { "x": 41, "y": 38 }
-    }
-  },
-  {
-    "image": "img/loc1.png",
-    "solutions": {
-      "noob": { "x": 1, "y": 0 },
-      "easy": { "x": 6, "y": 4 },
-      "medium": { "x": 13, "y": 9 },
-      "hard": { "x": 26, "y": 19 },
-      "omega": { "x": 53, "y": 39 }
-    }
-  },
-  {
-    "image": "img/loc2.png",
-    "solutions": {
-      "noob": { "x": 0, "y": 1 },
-      "easy": { "x": 3, "y": 6 },
-      "medium": { "x": 6, "y": 13 },
-      "hard": { "x": 13, "y": 27 },
-      "omega": { "x": 27, "y": 55 }
-    }
-  },
-  {
-    "image": "img/loc3.png",
-    "solutions": {
-      "noob": { "x": 0, "y": 1 },
-      "easy": { "x": 4, "y": 8 },
-      "medium": { "x": 9, "y": 16 },
-      "hard": { "x": 19, "y": 33 },
-      "omega": { "x": 39, "y": 66 }
-    }
-  },
-  {
-    "image": "img/loc4.png",
-    "solutions": {
-      "noob": { "x": 1, "y": 1 },
-      "easy": { "x": 8, "y": 8 },
-      "medium": { "x": 16, "y": 16 },
-      "hard": { "x": 32, "y": 33 },
-      "omega": { "x": 65, "y": 67 }
-    }
-  },
-  {
-    "image": "img/loc5.png",
-    "solutions": {
-      "noob": { "x": 1, "y": 1 },
-      "easy": { "x": 9, "y": 9 },
-      "medium": { "x": 19, "y": 18 },
-      "hard": { "x": 38, "y": 37 },
-      "omega": { "x": 76, "y": 74 }
-    }
-  },
-  {
-    "image": "img/loc6.png",
-    "solutions": {
-      "noob": { "x": 0, "y": 0 },
-      "easy": { "x": 2, "y": 2 },
-      "medium": { "x": 4, "y": 5 },
-      "hard": { "x": 9, "y": 10 },
-      "omega": { "x": 19, "y": 20 }
-    }
-  }]
+const images = []
 var locations = []
 
 window.onload = function () {
@@ -88,7 +19,7 @@ function init() {
     document.getElementById("difficulty").addEventListener("change", function () {
         buildMap()
     })
-    //fetchPictures()
+    fetchPictures()
 }
 
 function buildMap() {
@@ -205,21 +136,27 @@ function showResult() {
     document.getElementById("score").innerHTML = `Score: ${totalScore}`
 }
 
+async function fetchPictures() {
+  let fetch = await fetch("images.json");
+  let y = await fetch.text();
+  myDisplay(y);
+}
+
 function fetchPictures() {
-    fetch("images.json")
-        .then(res => res.json())
-        .then(json => {
-            json.forEach(entry => {
-                images.push(entry); // vagy ha csak pl. a medium koordináták kellenek:
-                // allData.push(entry.solutions.medium);
+     fetch("images.json")
+        .then((response) => response.json())
+        .then((data) => {
+            data.forEach(element => {
+                images.push(element)
             });
-
-            
-        });
-
+        })
+        .catch((err) => console.log("hiba", err))
+    
+    
 }
 
 function rollPicture() {
+    console.log(locations);
     let index = Math.floor(Math.random() * locations.length);
     let solution = locations[index].solutions
     
