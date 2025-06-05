@@ -115,14 +115,14 @@ function startGame() {
     nextRound()
     toggleMenu()
     toggleEndscreen()
-
+    get("id", "nextBtn").textContent = "Next Round"
 }
 
 function reset() {
     round = 0
     totalScore = 0
     bestScore = 0
-    get("query","body").classList.remove("menu-up")
+    get("query", "body").classList.remove("menu-up")
 }
 
 function toggleMenu() {
@@ -131,17 +131,26 @@ function toggleMenu() {
 }
 
 function toggleEndscreen() {
-    get("id","results").style.display = "none"
-    get("query",".blur-black").style.display = "none"
+    get("id", "results").style.display = "none"
+    get("query", ".blur-black").style.display = "none"
 }
 function nextRound() {
-    canSelect = true
-    buildMap()
-    rollPicture()
-    round++
-    document.getElementById("round").innerHTML = `Round: ${round}/5`
-    document.getElementById("difficulty").disabled = true
-    document.getElementById("nextBtn").disabled = true
+    if (round < 5) {
+        round++
+        canSelect = true
+        buildMap()
+        rollPicture()
+        document.getElementById("round").innerHTML = `Round: ${round}/5`
+        document.getElementById("difficulty").disabled = true
+        document.getElementById("nextBtn").disabled = true
+        if (round >= 5) {
+            get("id", "nextBtn").textContent = "Finish"
+        }
+    } else {
+        gameOver()
+    }
+
+
 }
 
 function onCellSelected(x, y) {
@@ -162,16 +171,19 @@ function onCellSelected(x, y) {
     }
 
     canSelect = false
-    document.getElementById("nextBtn").disabled = false
-    /* if (round < 5) {
-
+    
+    /* 
+    if (round <= 5) {
+        document.getElementById("nextBtn").disabled = false
     } else {
-        document.getElementById("difficulty").disabled = false
+        get("id", "nextBtn").textContent = "Finish"
     } */
-    if (round >= 5) {
+    document.getElementById("nextBtn").disabled = false
+    /* if (round >= 5) {
         gameOver()
 
-    }
+    } */
+
 
 
 
@@ -185,15 +197,15 @@ function gameOver() {
 function showResults() {
     get("id", "results").style.display = "flex"
     get("query", ".blur-black").style.display = "flex"
-    get("query","body").classList.add("menu-up")
+    get("query", "body").classList.add("menu-up")
     get("id", "result-score").textContent = `Score: ${totalScore}`
-    get("id", "result-best").textContent = `Score: ${bestScore}`
-    
+    get("id", "result-best").textContent = `Best Score: ${bestScore}`
+
 
 }
 
-function refreshScore() {
-    document.getElementById("score").textContent = `Score: ${totalScore}`
+function refreshScore(score = 0) {
+    document.getElementById("score").textContent = `Score: ${score}`
 }
 
 function fetchPictures() {
@@ -288,5 +300,5 @@ function calcScore(x, y) {
     }
 
     totalScore += score
-    refreshScore()
+    refreshScore(score)
 }
