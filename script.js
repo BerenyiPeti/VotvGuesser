@@ -5,21 +5,46 @@ var difY = 0
 var difficulty = "easy"
 var canSelect = false
 var totalScore = 0
+var bestScore = 0
 var round = 0
 const images = []
 var locations = []
 
 window.onload = function () {
     init()
-
 };
 
 function init() {
     buildMap()
-    document.getElementById("difficulty").addEventListener("change", function () {
+    get("id", "difficulty").addEventListener("change", function () {
         buildMap()
     })
     fetchPictures()
+
+}
+
+function get(selector, name) {
+    let value
+    switch (selector) {
+        case "id":
+            value = document.getElementById(name)
+            break;
+        case "query":
+            value = document.querySelector(name)
+            break;
+        case "queryAll":
+            value = document.querySelectorAll(name)
+            break;
+        case "class":
+            value = document.getElementsByClassName(name)
+            break;
+        default:
+            value = document.getElementById(name)
+            break;
+    }
+
+    return value
+
 }
 
 function buildMap() {
@@ -85,14 +110,30 @@ function setDifficulity() {
 
 function startGame() {
     locations = [...images]
-    
-    round = 0
-    totalScore = 0
-    showResult()
+    reset()
+    refreshScore()
     nextRound()
-    document.getElementById("nextBtn").disabled = true
+    toggleMenu()
+    toggleEndscreen()
+
 }
 
+function reset() {
+    round = 0
+    totalScore = 0
+    bestScore = 0
+    get("query","body").classList.remove("menu-up")
+}
+
+function toggleMenu() {
+    document.getElementById("main").style.display = "flex"
+    document.getElementById("menu").style.display = "none"
+}
+
+function toggleEndscreen() {
+    get("id","results").style.display = "none"
+    get("query",".blur-black").style.display = "none"
+}
 function nextRound() {
     canSelect = true
     buildMap()
@@ -121,29 +162,42 @@ function onCellSelected(x, y) {
     }
 
     canSelect = false
-    if (round < 5) {
-        document.getElementById("nextBtn").disabled = false
+    document.getElementById("nextBtn").disabled = false
+    /* if (round < 5) {
 
     } else {
         document.getElementById("difficulty").disabled = false
+    } */
+    if (round >= 5) {
+        gameOver()
+
     }
 
 
 
 }
 
-function showResult() {
-    document.getElementById("score").innerHTML = `Score: ${totalScore}`
+function gameOver() {
+    showResults()
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-async function fetchPictures() {
-  let fetch = await fetch("images.json");
-  let y = await fetch.text();
-  myDisplay(y);
+function showResults() {
+    get("id", "results").style.display = "flex"
+    get("query", ".blur-black").style.display = "flex"
+    get("query","body").classList.add("menu-up")
+    get("id", "result-score").textContent = `Score: ${totalScore}`
+    get("id", "result-best").textContent = `Score: ${bestScore}`
+    
+
+}
+
+function refreshScore() {
+    document.getElementById("score").textContent = `Score: ${totalScore}`
 }
 
 function fetchPictures() {
-     fetch("images.json")
+    fetch("images.json")
         .then((response) => response.json())
         .then((data) => {
             data.forEach(element => {
@@ -151,17 +205,17 @@ function fetchPictures() {
             });
         })
         .catch((err) => console.log("hiba", err))
-    
-    
+
+
 }
 
 function rollPicture() {
     console.log(locations);
     let index = Math.floor(Math.random() * locations.length);
     let solution = locations[index].solutions
-    
-    
-        
+
+
+
     solutionX = 0
     solutionY = 0
     switch (difficulty) {
@@ -190,12 +244,12 @@ function rollPicture() {
             solutionY = solution["easy"].y
             break;
     }
-    
+
     let route = locations[index].image
-    
+
     document.getElementById("image").src = route
     locations.splice(index, 1)
-    
+
 }
 
 function calcScore(x, y) {
@@ -229,6 +283,10 @@ function calcScore(x, y) {
     }
     let score = Math.max(0, 100 - distance * mult)
 
+    if (score > bestScore) {
+        bestScore = score
+    }
+
     totalScore += score
-    showResult()
+    refreshScore()
 }
