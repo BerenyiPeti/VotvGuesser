@@ -7,8 +7,8 @@ var canSelect = false
 var totalScore = 0
 var bestScore = 0
 var round = 0
-const images = []
-var locations = []
+const locations = []
+var locationsTemp = []
 
 window.onload = function () {
     init()
@@ -109,7 +109,7 @@ function setDifficulity() {
 }
 
 function startGame() {
-    locations = [...images]
+    locationsTemp = [...locations]
     reset()
     refreshScore()
     nextRound()
@@ -213,7 +213,7 @@ function fetchPictures() {
         .then((response) => response.json())
         .then((data) => {
             data.forEach(element => {
-                images.push(element)
+                locations.push(element)
             });
         })
         .catch((err) => console.log("hiba", err))
@@ -222,9 +222,9 @@ function fetchPictures() {
 }
 
 function rollPicture() {
-    console.log(locations);
-    let index = Math.floor(Math.random() * locations.length);
-    let solution = locations[index].solutions
+    console.log(locationsTemp);
+    let index = Math.floor(Math.random() * locationsTemp.length);
+    let solution = locationsTemp[index].solutions
 
 
 
@@ -257,10 +257,10 @@ function rollPicture() {
             break;
     }
 
-    let route = locations[index].image
+    let route = locationsTemp[index].image
 
     document.getElementById("image").src = route
-    locations.splice(index, 1)
+    locationsTemp.splice(index, 1)
 
 }
 
