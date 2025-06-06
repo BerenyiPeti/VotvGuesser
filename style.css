@@ -59,7 +59,7 @@ body.menu-up {
     cursor: pointer;
 }
 
-.cell:hover {
+.cell:not(.highlighted):hover {
     background-color: rgba(255, 255, 255, 0.25);
 }
 
@@ -199,4 +199,16 @@ button:disabled:hover {
     font-size: 24px;
     cursor: pointer;
     color: #444;
+}
+
+.guessRight {
+    background-color: rgb(0, 255, 0, 0.5);
+}
+
+.guessWrong {
+    background-color: rgb(255, 0, 0, 0.5);
+}
+
+.solution {
+    background-color: rgb(0, 0, 255, 0.5);
 }

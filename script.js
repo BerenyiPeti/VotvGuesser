@@ -1,24 +1,20 @@
-var solutionX = 0
-var solutionY = 0
-var difX = 0
-var difY = 0
-var difficulty = "easy"
-var canSelect = false
-var totalScore = 0
-var bestScore = 0
-var round = 0
+let solutionX = 0
+let solutionY = 0
+let difX = 0
+let difY = 0
+let difficulty = "easy"
+let canSelect = false
+let totalScore = 0
+let bestScore = 0
+let round = 0
 const locations = []
-var locationsTemp = []
+let locationsTemp = []
 
 window.onload = function () {
     init()
 };
 
 function init() {
-    /* buildMap()
-    get("id", "difficulty").addEventListener("change", function () {
-        buildMap()
-    }) */
     fetchPictures()
 
 }
@@ -105,21 +101,14 @@ function setDifficulty() {
     }
 
     return cols
-
-    /* dropdown.addEventListener("change", function() {
-        console.log(this.value);
-        
-    }) */
 }
 
 function startGame() {
     locationsTemp = [...locations]
-    //buildMap()
     refreshScore()
     nextRound()
     toggleMenu()
-    //toggleEndscreen()
-    //get("id", "nextBtn").textContent = "Next Round"
+    buildMap()
 }
 
 function reset() {
@@ -143,10 +132,20 @@ function toggleEndscreen() {
 }
 function nextRound() {
     refreshScore()
+    let cells = Array.from(document.getElementsByClassName("cell")) 
+    if (round > 0) {
+        cells.forEach(cell => {
+            if (cell.classList.contains("highlighted")) {
+                cell.classList.remove("highlighted")
+                cell.classList.remove("guessRight")
+                cell.classList.remove("guessWrong")
+                cell.classList.remove("solution")
+            }
+        });
+    }
     if (round < 5) {
         round++
         canSelect = true
-        buildMap()
         rollPicture()
         document.getElementById("round").innerHTML = `Round: ${round}/5`
         document.getElementById("difficulty").disabled = true
@@ -185,26 +184,15 @@ function onCellSelected(x, y) {
 
 
     if (x == solutionX && y == solutionY) {
-        guess.style.backgroundColor = "rgba(0, 255, 0, 0.5)"
+        guess.classList.add("guessRight")
     } else {
-        guess.style.backgroundColor = "rgba(255, 0, 0, 0.5)"
-        solution.style.backgroundColor = "rgba(0, 0, 255, 0.5)"
+        guess.classList.add("guessWrong")
+        solution.classList.add("solution")
     }
 
     canSelect = false
-
-    /* 
-    if (round <= 5) {
-        document.getElementById("nextBtn").disabled = false
-    } else {
-        get("id", "nextBtn").textContent = "Finish"
-    } */
     document.getElementById("nextBtn").disabled = false
-    /* if (round >= 5) {
-        gameOver()
-
-    } */
-
+ 
 
 
 
