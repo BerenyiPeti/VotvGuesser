@@ -16,18 +16,21 @@
         <h1>Guesses Of The Void</h1>
         <div>
             <div>
-                <button onclick="startGame()" id="startBtn" class="btn btn-success">Start</button>
+                <button onclick="startGame()" id="startBtn" class="">Start</button>
 
-                <button onclick="alert('Dont suck (VIP)')" id="infoBtn" class="btn btn-primary">How to Play</button>
+                <button onclick="alert('Dont suck (VIP)')" id="infoBtn" class="">How to Play</button>
             </div>
             <div>
-                <label for="dif">Difficulity</label>
-                <select id="difficulty" class="form-select">
-                    <option value="noob">Noob</option>
-                    <option value="easy" selected="selected">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                    <option value="omega">Omega Hard</option>
+
+                <label for="difficulty">Difficulty</label>
+            </div>
+            <div>
+                <select id="difficulty" class="">
+                    <option value="noob">Easy++ (experimental)</option>
+                    <option value="easy">Easy (experimental)</option>
+                    <option value="medium" selected="selected">Normal</option>
+                    <option value="hard">Hard (experimental)</option>
+                    <option value="omega">Hard++ (experimental)</option>
                 </select>
             </div>
 
@@ -37,7 +40,8 @@
         <div style="display: flex; gap: 20px;">
             <h1 id="round">Round: 0/5</h1>
             <h1 id="score">Score: 0</h1>
-            <button onclick="nextRound()" id="nextBtn" class="btn btn-light">Next Round</button>
+            <button onclick="nextRound()" id="nextBtn" class="">Next Round</button>
+            <button onclick="exit(this)" data-confirm="false" id="exitBtn" class="">Back to menu</button>
         </div>
         <div id="mapContainer">
             <div id="grid"></div>
@@ -51,8 +55,8 @@
             <h3 id="result-best">Best Guess: 0</h3>
             <div>
 
-                <button class="btn btn-success" onclick="startGame()">New Game</button>
-                <button class="btn btn-primary" onclick="location.reload()">Main Menu</button>
+                <button class="" onclick="reset()">New Game</button>
+                <button class="" onclick="location.reload()">Main Menu</button>
             </div>
         </div>
     </div>

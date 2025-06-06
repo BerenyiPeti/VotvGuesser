@@ -15,10 +15,10 @@ window.onload = function () {
 };
 
 function init() {
-    buildMap()
+    /* buildMap()
     get("id", "difficulty").addEventListener("change", function () {
         buildMap()
-    })
+    }) */
     fetchPictures()
 
 }
@@ -48,9 +48,13 @@ function get(selector, name) {
 }
 
 function buildMap() {
-    let cols = setDifficulity()
+    let cols = setDifficulty()
     let grid = document.getElementById("grid")
-    grid.innerHTML = ''
+
+    if (grid) {
+        grid.innerHTML = ''
+
+    }
     grid.style.setProperty('--cols', cols)
 
     for (let index = 0; index < cols * cols; index++) {
@@ -75,7 +79,7 @@ function buildMap() {
 }
 
 //returns cols
-function setDifficulity() {
+function setDifficulty() {
     let dropdown = document.getElementById("difficulty")
     difficulty = dropdown.value
     let cols = 10
@@ -110,12 +114,12 @@ function setDifficulity() {
 
 function startGame() {
     locationsTemp = [...locations]
-    reset()
+    //buildMap()
     refreshScore()
     nextRound()
     toggleMenu()
-    toggleEndscreen()
-    get("id", "nextBtn").textContent = "Next Round"
+    //toggleEndscreen()
+    //get("id", "nextBtn").textContent = "Next Round"
 }
 
 function reset() {
@@ -123,6 +127,9 @@ function reset() {
     totalScore = 0
     bestScore = 0
     get("query", "body").classList.remove("menu-up")
+    get("id", "nextBtn").textContent = "Next Round"
+    toggleEndscreen()
+    startGame()
 }
 
 function toggleMenu() {
@@ -135,6 +142,7 @@ function toggleEndscreen() {
     get("query", ".blur-black").style.display = "none"
 }
 function nextRound() {
+    refreshScore()
     if (round < 5) {
         round++
         canSelect = true
@@ -151,6 +159,19 @@ function nextRound() {
     }
 
 
+}
+
+function exit(btn) {
+    if (btn.dataset.confirm == "false") {
+        btn.textContent = "Are you sure?"
+        btn.dataset.confirm = "true"
+        setTimeout(() => {
+            btn.textContent = "Back to menu"
+            btn.dataset.confirm = "false"
+        }, 3000)
+    } else {
+        location.reload()
+    }
 }
 
 function onCellSelected(x, y) {
@@ -171,7 +192,7 @@ function onCellSelected(x, y) {
     }
 
     canSelect = false
-    
+
     /* 
     if (round <= 5) {
         document.getElementById("nextBtn").disabled = false
@@ -192,13 +213,14 @@ function onCellSelected(x, y) {
 function gameOver() {
     showResults()
     window.scrollTo({ top: 0, behavior: "smooth" });
+
 }
 
 function showResults() {
     get("id", "results").style.display = "flex"
     get("query", ".blur-black").style.display = "flex"
     get("query", "body").classList.add("menu-up")
-    get("id", "result-score").textContent = `Score: ${totalScore}`
+    get("id", "result-score").textContent = `Total Score: ${totalScore}`
     get("id", "result-best").textContent = `Best Score: ${bestScore}`
 
 

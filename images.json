@@ -198,5 +198,25 @@
             "hard": { "x": 5, "y": 26 },
             "omega": { "x": 11, "y": 52 }
             }
+},
+{
+    "image": "img/loc20.webp",
+    "solutions": {
+    "noob": { "x": 1, "y": 0 },
+            "easy": { "x": 7, "y": 0 },
+            "medium": { "x": 14, "y": 1 },
+            "hard": { "x": 29, "y": 3 },
+            "omega": { "x": 58, "y": 7 }
+            }
+},
+{
+    "image": "img/loc21.webp",
+    "solutions": {
+    "noob": { "x": 0, "y": 1 },
+            "easy": { "x": 4, "y": 6 },
+            "medium": { "x": 8, "y": 12 },
+            "hard": { "x": 17, "y": 25 },
+            "omega": { "x": 35, "y": 50 }
+            }
 }
 ]
