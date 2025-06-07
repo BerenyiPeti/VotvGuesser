@@ -1,12 +1,24 @@
-let solutionX = 0
-let solutionY = 0
-let difX = 0
-let difY = 0
-let difficulty = "easy"
-let canSelect = false
-let totalScore = 0
-let bestScore = 0
-let round = 0
+const gameState = {
+    solutionX: 0,
+    solutionY: 0,
+    difficulty: "medium",
+    canSelect: false,
+    totalScore: 0,
+    bestScore: 0,
+    round: 0,
+}
+
+const DOM = {
+    //cells: Array.from(document.getElementsByClassName("cell")),
+    difficulty: document.getElementById("difficulty"),
+    score: document.getElementById("score"),
+    nextBtn: document.getElementById("nextBtn"),
+    grid: document.getElementById("grid"),
+    main: document.getElementById("main"),
+    menu: document.getElementById("menu"),
+    results: document.getElementById("results"),
+}
+
 const locations = []
 let locationsTemp = []
 
@@ -64,10 +76,11 @@ function buildMap() {
         cell.dataset.y = y
 
         cell.addEventListener("click", function () {
-            if (canSelect) {
+            if (gameState.canSelect) {
                 let x = this.dataset.x;
                 let y = this.dataset.y;
                 onCellSelected(x, y)
+                
             }
         });
         grid.appendChild(cell)
@@ -76,8 +89,10 @@ function buildMap() {
 
 //returns cols
 function setDifficulty() {
-    let dropdown = document.getElementById("difficulty")
-    difficulty = dropdown.value
+    let difficulty = DOM.difficulty.value
+    gameState.difficulty = difficulty
+    
+    
     let cols = 10
     switch (difficulty) {
         case "noob":
@@ -105,34 +120,35 @@ function setDifficulty() {
 
 function startGame() {
     locationsTemp = [...locations]
-    refreshScore()
-    nextRound()
-    toggleMenu()
     buildMap()
+    nextRound()
+    closeMenu()
 }
 
 function reset() {
-    round = 0
-    totalScore = 0
-    bestScore = 0
+    gameState.round = 0
+    gameState.totalScore = 0
+    gameState.bestScore = 0
     get("query", "body").classList.remove("menu-up")
-    get("id", "nextBtn").textContent = "Next Round"
-    toggleEndscreen()
+    gameState.nextBtn.textContent = "Next Round"
+    closeEndscreen()
     startGame()
 }
 
-function toggleMenu() {
-    document.getElementById("main").style.display = "flex"
-    document.getElementById("menu").style.display = "none"
+function closeMenu() {
+    DOM.main.style.display = "flex"
+    DOM.menu.style.display = "none"
 }
 
-function toggleEndscreen() {
+function closeEndscreen() {
     get("id", "results").style.display = "none"
     get("query", ".blur-black").style.display = "none"
 }
 function nextRound() {
     refreshScore()
-    let cells = Array.from(document.getElementsByClassName("cell")) 
+    let cells = Array.from(document.getElementsByClassName("cell"))
+    let round = gameState.round
+    
     if (round > 0) {
         cells.forEach(cell => {
             if (cell.classList.contains("highlighted")) {
@@ -144,14 +160,13 @@ function nextRound() {
         });
     }
     if (round < 5) {
-        round++
-        canSelect = true
+        gameState.round++
+        gameState.canSelect = true
         rollPicture()
         document.getElementById("round").innerHTML = `Round: ${round}/5`
-        document.getElementById("difficulty").disabled = true
-        document.getElementById("nextBtn").disabled = true
+        DOM.nextBtn.disabled = true
         if (round >= 5) {
-            get("id", "nextBtn").textContent = "Finish"
+            DOM.nextBtn.textContent = "Finish"
         }
     } else {
         gameOver()
@@ -177,22 +192,22 @@ function onCellSelected(x, y) {
     calcScore(x, y)
     let guess = document.querySelector(`.cell[data-x='${x}'][data-y='${y}']`)
 
-    let solution = document.querySelector(`.cell[data-x='${solutionX}'][data-y='${solutionY}']`)
-
+    let solution = document.querySelector(`.cell[data-x='${gameState.solutionX}'][data-y='${gameState.solutionY}']`)
+    
     guess.classList.add("highlighted")
     solution.classList.add("highlighted")
 
 
-    if (x == solutionX && y == solutionY) {
+    if (x == gameState.solutionX && y == gameState.solutionY) {
         guess.classList.add("guessRight")
     } else {
         guess.classList.add("guessWrong")
         solution.classList.add("solution")
     }
 
-    canSelect = false
-    document.getElementById("nextBtn").disabled = false
- 
+    gameState.canSelect = false
+    DOM.nextBtn.disabled = false
+
 
 
 
@@ -205,17 +220,17 @@ function gameOver() {
 }
 
 function showResults() {
-    get("id", "results").style.display = "flex"
+    DOM.results.style.display = "flex"
     get("query", ".blur-black").style.display = "flex"
     get("query", "body").classList.add("menu-up")
-    get("id", "result-score").textContent = `Total Score: ${totalScore}`
-    get("id", "result-best").textContent = `Best Score: ${bestScore}`
+    get("id", "result-score").textContent = `Total Score: ${gameState.totalScore}`
+    get("id", "result-best").textContent = `Best Score: ${gameState.bestScore}`
 
 
 }
 
 function refreshScore(score = 0) {
-    document.getElementById("score").textContent = `Score: ${score}`
+    DOM.score.textContent = `Score: ${score}`
 }
 
 function fetchPictures() {
@@ -226,47 +241,46 @@ function fetchPictures() {
                 locations.push(element)
             });
         })
-        .catch((err) => console.log("hiba", err))
+        .catch((err) => console.log("error", err))
 
 
 }
 
 function rollPicture() {
-    console.log(locationsTemp);
     let index = Math.floor(Math.random() * locationsTemp.length);
     let solution = locationsTemp[index].solutions
-
-
-
-    solutionX = 0
-    solutionY = 0
-    switch (difficulty) {
+    
+    gameState.solutionX = 0
+    gameState.solutionY = 0
+    
+    switch (gameState.difficulty) {
         case "noob":
-            solutionX = solution["noob"].x
-            solutionY = solution["noob"].y
+            gameState.solutionX = solution["noob"].x
+            gameState.solutionY = solution["noob"].y
             break;
         case "easy":
-            solutionX = solution["easy"].x
-            solutionY = solution["easy"].y
+            gameState.solutionX = solution["easy"].x
+            gameState.solutionY = solution["easy"].y
             break;
         case "medium":
-            solutionX = solution["medium"].x
-            solutionY = solution["medium"].y
+            gameState.solutionX = solution["medium"].x
+            gameState.solutionY = solution["medium"].y
             break;
         case "hard":
-            solutionX = solution["hard"].x
-            solutionY = solution["hard"].y
+            gameState.solutionX = solution["hard"].x
+            gameState.solutionY = solution["hard"].y
             break;
         case "omega":
-            solutionX = solution["omega"].x
-            solutionY = solution["omega"].y
+            gameState.solutionX = solution["omega"].x
+            gameState.solutionY = solution["omega"].y
             break;
         default:
-            solutionX = solution["easy"].x
-            solutionY = solution["easy"].y
+            gameState.solutionX = solution["easy"].x
+            gameState.solutionY = solution["easy"].y
             break;
     }
 
+    
     let route = locationsTemp[index].image
 
     document.getElementById("image").src = route
@@ -275,16 +289,23 @@ function rollPicture() {
 }
 
 function calcScore(x, y) {
-    difX = Math.abs(solutionX - x)
-    difY = Math.abs(solutionY - y)
-    let distance = difX + difY
-    if (difX == 1 && difY == 1) {
+    
+    let dX = Math.abs(gameState.solutionX - x)
+    let dY = Math.abs(gameState.solutionY - y)
+    let distance = dX + dY
+    if (dX == 1 && dY == 1) {
         distance = 1
     }
 
-    let mult = 10
+    const mults = {
+        noob: 100,
+        easy: 12,
+        medium: 8,
+        hard: 6,
+        omega: 4
+    }
 
-    switch (difficulty) {
+    /* switch (difficulty) {
         case "noob":
             mult = 100
             break;
@@ -302,13 +323,14 @@ function calcScore(x, y) {
             break;
         default:
             break;
-    }
-    let score = Math.max(0, 100 - distance * mult)
+    } */
 
-    if (score > bestScore) {
-        bestScore = score
+    let score = Math.max(0, 100 - distance * mults[gameState.difficulty])
+
+    if (score > gameState.bestScore) {
+        gameState.bestScore = score
     }
 
-    totalScore += score
+    gameState.totalScore += score
     refreshScore(score)
 }
