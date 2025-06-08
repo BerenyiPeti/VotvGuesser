@@ -130,7 +130,7 @@ function reset() {
     gameState.totalScore = 0
     gameState.bestScore = 0
     get("query", "body").classList.remove("menu-up")
-    gameState.nextBtn.textContent = "Next Round"
+    DOM.nextBtn.textContent = "Next Round"
     closeEndscreen()
     startGame()
 }
@@ -147,9 +147,9 @@ function closeEndscreen() {
 function nextRound() {
     refreshScore()
     let cells = Array.from(document.getElementsByClassName("cell"))
-    let round = gameState.round
+    console.log(gameState.round);
     
-    if (round > 0) {
+    if (gameState.round > 0) {
         cells.forEach(cell => {
             if (cell.classList.contains("highlighted")) {
                 cell.classList.remove("highlighted")
@@ -159,14 +159,16 @@ function nextRound() {
             }
         });
     }
-    if (round < 5) {
+    if (gameState.round < 5) {
         gameState.round++
         gameState.canSelect = true
         rollPicture()
-        document.getElementById("round").innerHTML = `Round: ${round}/5`
+        document.getElementById("round").innerHTML = `Round: ${gameState.round}/5`
         DOM.nextBtn.disabled = true
-        if (round >= 5) {
+        if (gameState.round >= 5) {
             DOM.nextBtn.textContent = "Finish"
+            console.log("szia");
+            
         }
     } else {
         gameOver()

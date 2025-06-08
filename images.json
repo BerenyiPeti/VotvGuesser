@@ -218,5 +218,55 @@
             "hard": { "x": 17, "y": 25 },
             "omega": { "x": 35, "y": 50 }
             }
-}
+},
+{
+    "image": "img/loc22.webp",
+    "solutions": {
+      "noob": { "x": 1, "y": 1 },
+      "easy": { "x": 5, "y": 7 },
+      "medium": { "x": 10, "y": 14 },
+      "hard": { "x": 20, "y": 29 },
+      "omega": { "x": 40, "y": 58 }
+    }
+  },
+	{
+    "image": "img/loc23.webp",
+    "solutions": {
+      "noob": { "x": 0, "y": 1 },
+      "easy": { "x": 3, "y": 5 },
+      "medium": { "x": 6, "y": 11 },
+      "hard": { "x": 13, "y": 23 },
+      "omega": { "x": 26, "y": 46 }
+    }
+  },
+	{
+    "image": "img/loc24.webp",
+    "solutions": {
+      "noob": { "x": 1, "y": 1 },
+      "easy": { "x": 5, "y": 5 },
+      "medium": { "x": 10, "y": 11 },
+      "hard": { "x": 20, "y": 22 },
+      "omega": { "x": 40, "y": 44 }
+    }
+  },
+	{
+    "image": "img/loc25.webp",
+    "solutions": {
+      "noob": { "x": 1, "y": 0 },
+      "easy": { "x": 7, "y": 1 },
+      "medium": { "x": 15, "y": 3 },
+      "hard": { "x": 30, "y": 6 },
+      "omega": { "x": 61, "y": 13 }
+    }
+  },
+	{
+    "image": "img/loc26.webp",
+    "solutions": {
+      "noob": { "x": 1, "y": 0 },
+      "easy": { "x": 5, "y": 3 },
+      "medium": { "x": 10, "y": 6 },
+      "hard": { "x": 20, "y": 12 },
+      "omega": { "x": 41, "y": 25 }
+    }
+  }
 ]
